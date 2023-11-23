@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Book;
 
 class BookController extends Controller
 {
@@ -11,18 +12,10 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Book $book)
     {
-        return view('books/list', ['booklist'=> array(
-            array("author"=>"F. Scott Fitzgerald", "name"=>"The Great Gatsby"),
-            array("author"=>"Emily Brontë", "name"=>"Wuthering Heights"),
-            array("author"=>"Margaret Atwood", "name"=>"The Handmaid's Tale"),
-            array("author"=>"Chinua Achebe", "name"=>"Things Fall Apart"),
-            array("author"=>"George Orwell", "name"=>"1984"),
-            array("author"=>"Toni Morrison", "name"=>"Beloved"),
-            array("author"=>"J.D. Salinger", "name"=>"The Catcher in the Rye"),
-            array("author"=>"Charles Dickens", "name"=>"Great Expectations"),
-        )]);
+        $booklist = $book->all();
+        return view('books/list', ['booklist'=> $booklist]);
     }
 
     /**
