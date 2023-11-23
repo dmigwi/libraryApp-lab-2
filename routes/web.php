@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\TasksController;
 
 /*
@@ -19,7 +20,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/welcom', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
 
@@ -31,8 +32,11 @@ Route::get('about', function () {
     return view('about');
 });
 
-//route to resources, i.e to Controller
+//route to resources, i.e to Book Controller
 Route::resource('books', BookController::class);
+
+//route to resources, i.e to Movie Controller
+Route::resource('movies', MovieController::class);
 
 //routes to methods in user controller
 Route::get('/users', 'App\Http\Controllers\UserController@index');

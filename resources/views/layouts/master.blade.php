@@ -31,6 +31,9 @@
         <li class="nav-item">
             <a class="nav-link " href="{{ URL::to('about') }}">About</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{{ URL::to('movies') }}">-Movies-</a>
+      </li>
       </ul>
    </div>
 </nav>
