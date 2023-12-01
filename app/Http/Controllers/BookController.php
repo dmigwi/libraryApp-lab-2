@@ -25,7 +25,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('books/create');
     }
 
     /**
@@ -36,7 +36,11 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $book = new Book();
+        $book->fill($data);
+        $book->save();
+        return redirect('books');
     }
 
     /**
@@ -45,10 +49,10 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        echo "BookController.show $id";
-        die();
+        $book = Book::find($id);
+        return view('books/show', ['book'=> $book]);
     }
 
     /**
@@ -57,7 +61,7 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         //
     }
@@ -69,7 +73,7 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         //
     }
@@ -80,8 +84,10 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        Book::delete($id);
+        // $booklist = Book::all();
+        // return view('books/list', ['booklist'=> $booklist]);
     }
 }

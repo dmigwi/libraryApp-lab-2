@@ -24,6 +24,10 @@
 
                     <!-- show method of movie controller -->
                     <td><a href="{{ url('/movies', [$movie->id]) }}">Details</a>
+                    <!-- edit method of movie controller -->
+                    <td> <a href="{{ url('/movies', [$movie->id, 'edit'])}}">Edit</a> </td>
+                    <!-- delete method of movie controller -->
+                    <td> <a href="{{ url('/movies', [$movie->id, 'delete'])}}">Delete</a> </td>
                 </tr>
                 @empty
                 Movie list is empty!

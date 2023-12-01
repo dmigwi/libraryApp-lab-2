@@ -7,7 +7,7 @@
     <title>@yield('title')</title>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="{{ URL::asset('css/styles.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('./css/app.css') }}">
 
   </head>
   <body>
@@ -45,9 +45,9 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" ></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/ tether.min.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"> </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-<script src="{{ URL::asset('js/code.js') }} "></script>
+<script src="{{ URL::asset('./js/app.js') }} "></script>
 
   </body>
 </html>
