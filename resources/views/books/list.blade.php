@@ -13,30 +13,26 @@
                 <th class="col-2" scope="col">Veiw Details</th>
                 <th class="col-2" scope="col">Update Details</th>
                 <th class="col-2" scope="col">Delete Book</th>
-                {{-- <th class="col-1" scope="col">Price</th>
-                <th class="col-1" scope="col"></th> --}}
             </tr>
         </thead>
         <tbody>
-            @forelse ($booklist as $book)
+            @for($i=0; $i<count($booklist); $i++)
                 <tr>
-                    <td>{{$book->id }}</td>
-                    <td>{{$book->title }}</td>
-                    {{-- <td>{{$book->year }}</td>
-                    <td>{{$book->publication_place }}</td>
-                    <td>{{$book->pages }}</td>
-                    <td>{{$book->price }}</td> --}}
-
+                    <td>{{$i + 1 }}</td>
+                    <td>{{$booklist[$i]->title }}</td>
+                
                     <!-- show method of book controller -->
-                    <td><a href="{{ url('/books', [$book->id]) }}">Details</a> </td>
+                    <td><a href="{{ url('/books', [$booklist[$i]->id]) }}">Details</a> </td>
                     <!-- edit method of book controller -->
-                    <td> <a href="{{ url('/books', [$book->id, 'edit'])}}">Edit</a> </td>
+                    <td> <a href="{{ url('/books', [$booklist[$i]->id, 'edit'])}}">Edit</a> </td>
                     <!-- delete method of book controller -->
-                    <td> <a href="{{ url('/books', [$book->id, 'delete'])}}">Delete</a> </td>
+                    <td> <a href="{{ url('/books', [$booklist[$i]->id, 'delete'])}}">Delete</a> </td>
                 </tr>
-                @empty
+    
+            @endfor
+            @if(empty($booklist))
                 Book list is empty!
-            @endforelse
+            @endif
         </tbody>
     </table>
 </span>

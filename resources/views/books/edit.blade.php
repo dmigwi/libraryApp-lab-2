@@ -14,8 +14,9 @@
           </form>
      @else
           <h2 style="text-align:center;">Update Book</h2>
-          <form action="{{ action('App\Http\Controllers\BookController@update', ['book' => $book])}}" method="UPDATE" role="form">
-               @includeIf('books.form', ['id' => $book])
+          <form action="{{ action('App\Http\Controllers\BookController@update', ['book' => $book])}}" method="POST" role="form">
+               {{ method_field('PUT') }}
+               @includeIf('books.form', ['book' => $book])
           </form> 
     @endif
 

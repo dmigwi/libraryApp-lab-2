@@ -1,4 +1,4 @@
-<input type='hidden' name='_token' value='{{ csrf_token()}}' /> 
+{{-- <input type='hidden' name='_token' value='{{ csrf_token()}}' />  --}}
 @csrf
 <div class='form-group'>
     <input type='text' class='form-control' name='title'  placeholder="Title of book" value="{{$book->title ?? ''}}" />
