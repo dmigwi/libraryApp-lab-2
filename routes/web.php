@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\LoanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,8 @@ Route::resource('books', BookController::class);
 
 //route to resources, i.e to Movie Controller
 Route::resource('movies', MovieController::class);
+
+Route::resource('loans', LoanController::class);
 
 //routes to methods in user controller
 Route::get('/users', 'App\Http\Controllers\UserController@index');
