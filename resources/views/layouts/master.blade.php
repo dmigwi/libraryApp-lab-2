@@ -26,6 +26,12 @@
           <a class="nav-link " href="{{ URL::to('books') }}">Books</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link " href="{{ URL::to('loans') }}">Loans</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{{ URL::to('authors') }}">Authors</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link " href="{{ URL::to('products') }}">Products</a>
         </li>
         <li class="nav-item">
