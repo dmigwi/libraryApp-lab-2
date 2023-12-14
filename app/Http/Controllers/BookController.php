@@ -26,17 +26,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        // $book = new Book();
-        // $book->title = "Computer Networking: A Top-Down Approach";
-        // $book->year = 2018;
-        // $book->publication_place = "London";
-        // $book->pages = 764;
-        // $book->price = 101.00;
-        // $book->save();
-        // $isbn = new Isbn([ 'number' => '32145678', 'issued_by' => 'Publisher2', 'issued_on' => '2016-06-06']);
-        // $book->isbn()->save($isbn);
-        // return redirect('books');
-        return view('books/edit', ['book'=> null]);
+        return view('books/edit', ['book'=> null, 'isbn' => null]);
     }
 
     /**
@@ -47,10 +37,14 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $bookData = $request->only(['title', 'year', 'publication_place', 'pages', 'price']);
         $book = new Book();
-        $book->fill($data);
+        $book->fill($bookData);
         $book->save();
+
+        $isbn = new Isbn($request->only(['number', 'issued_by', 'issued_on']));
+        $book->isbn()->save($isbn);
+
         return redirect('books');
     }
 
@@ -88,8 +82,21 @@ class BookController extends Controller
     public function update(Request $request, int $id)
     {
         $bookData = $request->only(['title', 'year', 'publication_place', 'pages', 'price']);
-        Book::whereId($id)->update($bookData);
-        return $this->edit($id);
+        $book = Book::whereId($id);
+        $book->update($bookData);
+
+        $isbnData = $request->only(['number', 'issued_by', 'issued_on']);
+        $isbnObj = Isbn::where('book_id', $id);
+      
+        if ($isbnObj->first()) {
+            $isbnObj->update($isbnData);
+        } else {
+            $isbnObj = new Isbn($isbnData);
+            $isbnObj->fill(['book_id' => $id]);
+            $isbnObj->save();
+        }
+        
+        return $this->show($id);
     }
 
     /**

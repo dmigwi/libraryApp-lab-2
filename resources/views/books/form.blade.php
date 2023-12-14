@@ -1,20 +1,16 @@
 {{-- <input type='hidden' name='_token' value='{{ csrf_token()}}' />  --}}
 @csrf
 <div class='form-group'>
-    <input type='text' class='form-control' name='title'  placeholder="Title of book" value="{{$book->title ?? ''}}" />
+    <input type='text' class='form-control form-group' name='title' placeholder="Title of book" value="{{$book->title ?? ''}}" required/>
+    <input type='number' max='2099' min='1500' class='form-control form-group' name='year'  placeholder="Publication Year" value="{{$book->year ?? ''}}" required/>
+    <input type='text' class='form-control form-group' name='publication_place' placeholder="Publication Place" value="{{$book->publication_place ?? ''}}" required/>
+    <input type='number' min='0' class='form-control form-group' name='pages' placeholder="Number of Pages" value="{{$book->pages ?? ''}}"/>
+    <input type='number'class='form-control form-group' min="0.00" step="0.01" name='price' placeholder="Book Price (Złoty)" value="{{$book->price ?? ''}}"/>
+    <input type='text' class='form-control form-group' name='number' placeholder="ISBN Number" value="{{$book->isbn->number ?? ''}}" required/>
+    <input type='text' class='form-control form-group' name='issued_by' placeholder="Issued By" value="{{$book->isbn->issued_by ?? ''}}" required/>
+    <input type='date' class='form-control form-group' name='issued_on' placeholder="Issued On" value="{{$book->isbn->issued_on ?? ''}}" required/>
 </div>
-<div class='form-group'>
-    <input type='number' max='2099' min='1500' class='form-control' name='year'  placeholder="Publication Year" value="{{$book->year ?? ''}}" />
-</div>
-<div class='form-group'>
-    <input type='text' class='form-control' name='publication_place'  placeholder="Publication Place" value="{{$book->publication_place ?? ''}}" />
-</div>
-    <div class='form-group'>
-    <input type='number' min='0' class='form-control' name='pages'  placeholder="Number of Pages" value="{{$book->pages ?? ''}}"/>
-</div>
-    <div class='form-group'>
-    <input type='number' min="0.00" max="100000.00" step="0.01" class='form-control' name='price'  placeholder="Book Price (Złoty)" value="{{$book->price ?? ''}}"/>
-</div>
+
 @if(is_null($book))
     <input type="submit" value="Add a book" class='btn btn-primary' />  
 @else
