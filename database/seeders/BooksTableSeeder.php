@@ -38,5 +38,29 @@ class BooksTableSeeder extends Seeder
             'pages' => "600",
             'price' => "88.88",
         ]);
+
+        DB::table('books')->insert([
+            'title' => "Introduction to Programing",
+            'year' => "2014",
+            'publication_place' => "London",
+            'pages' => "234",
+            'price' => "12.34",
+         ]);
+       
+        DB::table('books')->insert([    
+            'title' => "Sample Book",
+            'year' => "2023",
+            'publication_place' => "Warsaw",
+            'pages' => "213",
+            'price' => "78",
+         ]);
+
+        DB::table('books')->insert([ 
+            'title' => "Who let the dogs out?",
+            'year' => "1923",
+            'publication_place' => "Nairobi",
+            'pages' => "50",
+            'price' => "12",
+         ]);
     }
 }
