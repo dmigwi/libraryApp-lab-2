@@ -15,22 +15,14 @@ class AuthorBookSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('authors')->insert([
-            'lastname' => 'Kurose',
-            'firstname' => 'James',
-            'birthday' => '1970-01-01',
-            'genres' => 'Computer science',
+        DB::table('author_book')->insert([
             'book_id' => 1,
             'author_id' => 1,
         ]);
 
-        DB::table('authors')->insert([
-            'lastname' => 'Ross',
-            'firstname' => 'Keith',
-            'birthday' => '1985-01-01',
-            'genres' => 'Computer science',
+        DB::table('author_book')->insert([
             'book_id' => 1,
-            'author_id' => 1,
+            'author_id' => 2,
         ]);
     }
 }
