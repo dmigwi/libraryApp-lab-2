@@ -15,7 +15,6 @@ class AuthorController extends Controller
      */
     public function index()
     { 
-        $this->create();
         $authorsList=Author::all();
         return view('authors/list',['authorsList' => $authorsList]);
     }
@@ -27,23 +26,29 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        $author = new Author();
-        $author->lastname = 'Kurose';
-        $author->firstname = 'James';
-        $author->birthday = '1970-01-01';
-        $author->genres = 'Computer science';
-        $author->save();
 
-        $author2 = new Author();
-        $author2->lastname = 'Ross';
-        $author2->firstname = 'Keith';
-        $author2->birthday = '1985-02-02';
-        $author2->genres = 'Computer science';
-        $author2->save();
+        $booksList=Book::all();
+        return view('authors/edit', ['author'=> null, 'books' => $booksList]);
+        // $networks = Book::where('title','Sample Book')->first();
+        // $author = new Author();
+        // $author->lastname = 'Kurose';
+        // $author->firstname = 'James';
+        // $author->birthday = '1970-01-01';
+        // $author->genres = 'Computer science';
+        // $author->fill(['book_id' => $networks->id]);
+        // $author->create();
 
-        $networks = Book::where('title','Computer Networking: A Top-Down Approach')->first();
-        $networks->authors()->save($author);
-        $networks->authors()->save($author2);
+        // $author2 = new Author();
+        // $author2->lastname = 'Ross';
+        // $author2->firstname = 'Keith';
+        // $author2->birthday = '1985-02-02';
+        // $author2->genres = 'Computer science';
+        // $author2->fill(['book_id' => $networks->id]);
+        // $author2->create();
+
+        
+        // $networks->authors()->save($author);
+        // $networks->authors()->save($author2);
         // return redirect('books');
     }
 

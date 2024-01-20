@@ -34,9 +34,10 @@ Route::get('about', function () {
     return view('about');
 });
 
-Route::get('/books/create', 'App\Http\Controllers\BookController@create');
-Route::get('/books/{id}/edit', 'App\Http\Controllers\BookController@edit');
+// Route::get('/books/create', 'App\Http\Controllers\BookController@create');
+// Route::get('/books/{id}/edit', 'App\Http\Controllers\BookController@edit');
 Route::get('/books/{id}/delete', 'App\Http\Controllers\BookController@destroy');
+Route::get('/authors/{id}/delete', 'App\Http\Controllers\AuthorController@destroy');
 
 //route to resources, i.e to Book Controller
 Route::resource('books', BookController::class);

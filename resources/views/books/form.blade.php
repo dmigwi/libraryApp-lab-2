@@ -1,15 +1,51 @@
 {{-- <input type='hidden' name='_token' value='{{ csrf_token()}}' />  --}}
 @csrf
-<div class='form-group'>
-    <input type='text' class='form-control form-group' name='title' placeholder="Title of book" value="{{$book->title ?? ''}}" required/>
-    <input type='number' max='2099' min='1500' class='form-control form-group' name='year'  placeholder="Publication Year" value="{{$book->year ?? ''}}" required/>
-    <input type='text' class='form-control form-group' name='publication_place' placeholder="Publication Place" value="{{$book->publication_place ?? ''}}" required/>
-    <input type='number' min='0' class='form-control form-group' name='pages' placeholder="Number of Pages" value="{{$book->pages ?? ''}}"/>
-    <input type='number'class='form-control form-group' min="0.00" step="0.01" name='price' placeholder="Book Price (Złoty)" value="{{$book->price ?? ''}}"/>
-    <input type='text' class='form-control form-group' name='number' placeholder="ISBN Number" value="{{$book->isbn->number ?? ''}}" required/>
-    <input type='text' class='form-control form-group' name='issued_by' placeholder="Issued By" value="{{$book->isbn->issued_by ?? ''}}" required/>
-    <input type='date' class='form-control form-group' name='issued_on' placeholder="Issued On" value="{{$book->isbn->issued_on ?? ''}}" required/>
-</div>
+<table class='form-group form-table'>
+    <tr class='form-control form-group'>
+        <td class="font-weight-bold">Book Title :</td>
+        <td><input type='text' name='title' value="{{$book->title ?? ''}}" required/></td>
+    </tr>
+    <tr class='form-control form-group'>
+        <td class="font-weight-bold">Publication Year:</td>
+    <td><input type='number' max='2099' min='1500' name='year' value="{{$book->year ?? ''}}" required/></td>
+    </tr>
+    <tr class='form-control form-group'>
+        <td class="font-weight-bold">Publication Place:</td>
+        <td><input type='text' name='publication_place'  value="{{$book->publication_place ?? ''}}" required/></td>
+    </tr>
+    <tr class='form-control form-group'>
+        <td class="font-weight-bold">Number of Pages:</td>
+        <td><input type='number' min='0' name='pages'  value="{{$book->pages ?? ''}}"/></td>
+    </tr>
+    <tr class='form-control form-group'>
+        <td class="font-weight-bold">Book Price (Złoty):</td>
+        <td><input type='number'min="0.00" step="0.01" name='price' value="{{$book->price ?? ''}}"/></td>
+    </tr>
+    <tr class='form-control form-group'>
+        <td class="font-weight-bold">ISBN Number :</td>
+        <td><input type='text' name='number' value="{{$book->isbn->number ?? ''}}" required/></td>
+    </tr>
+    <tr class='form-control form-group'>
+        <td class="font-weight-bold">Issued By :</td>
+        <td><input type='text' name='issued_by' value="{{$book->isbn->issued_by ?? ''}}" required/></td>
+    </tr>
+    <tr class='form-control form-group'>
+        <td class="font-weight-bold">Issued On :</td>
+        <td><input type='date' name='issued_on' value="{{$book->isbn->issued_on ?? ''}}" required/></td>
+    </tr>
+    <tr class='form-control form-group'>
+        <td class="font-weight-bold">Author(s) :</td>
+        @isset($book->authors)
+            <td>
+            @foreach($book->authors as $author)
+                <li>
+                    {{$author->lastname}}  {{$author->firstname}}
+                </li>
+            @endforeach
+            </td>
+        @endisset
+    </tr>
+</table>
 
 @if(is_null($book))
     <input type="submit" value="Add a book" class='btn btn-primary' />  
