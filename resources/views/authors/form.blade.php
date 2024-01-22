@@ -16,23 +16,37 @@
     <tr class='form-control form-group'>
         <td class="font-weight-bold">Birthday:</td>
         <td>
-            <input type='number' max='2099' min='1500' name='birthday'  value="{{$author->birthday ?? ''}}" required/>
+            <input type='date' max='2099' min='1500' name='birthday'  data-date-format="DD/MM/YYYY" value="{{$author->birthday ?? ''}}" required/>
         </td>
     </tr>
     <tr class='form-control form-group'>
         <td class="font-weight-bold">Genre:</td>
         <td>
-            <input type='text' name='genre' value="{{$author->genre ?? ''}}" required/>
+            <input type='text' name='genres' value="{{$author->genres ?? ''}}" required/>
         </td>
     </tr>
     <tr class='form-control form-group'>
         <td class="font-weight-bold">Book(s) Authored :</td>
         <td>
-            @isset($author->authors)
-                <ul>
-                @forelse($author->books as $book)
-                    <li class="form-check form-switch d-block">
-                        {{$book->title}}  ({{$book->year}})
+            @isset($booksList)
+                <ul class="list-display form-check" style="padding-inline-start: 10px;">
+                @forelse($booksList as $book)
+                    @php $isChecked = false; @endphp
+
+                    @isset($author-> books)
+                        @foreach($author-> books as $selectedBook)
+                            @if ($book->title === $selectedBook -> title)
+                                    @php $isChecked = true @endphp
+                                @break
+                            @endif
+                        @endforeach
+                    @endisset
+
+                    <li class="form-check form-switch d-blocks">
+                        <label>
+                            <input type="checkbox" name="book_id" value="{{$book->id}}" @checked($isChecked) style="width:min-content;">
+                            {{$book->title}}  ({{$book->year}})
+                        </label>
                     </li>
                 @empty
                     No Authored book found!

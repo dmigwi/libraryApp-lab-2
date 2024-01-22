@@ -35,7 +35,7 @@ Route::get('about', function () {
 });
 
 // Route::get('/books/create', 'App\Http\Controllers\BookController@create');
-// Route::get('/books/{id}/edit', 'App\Http\Controllers\BookController@edit');
+// Route::get('/authors/{id}/edit', 'App\Http\Controllers\AuthorController@edit');
 Route::get('/books/{id}/delete', 'App\Http\Controllers\BookController@destroy');
 Route::get('/authors/{id}/delete', 'App\Http\Controllers\AuthorController@destroy');
 

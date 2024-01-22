@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Author;
 use App\Models\Book;
+use Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
@@ -28,28 +29,7 @@ class AuthorController extends Controller
     {
 
         $booksList=Book::all();
-        return view('authors/edit', ['author'=> null, 'books' => $booksList]);
-        // $networks = Book::where('title','Sample Book')->first();
-        // $author = new Author();
-        // $author->lastname = 'Kurose';
-        // $author->firstname = 'James';
-        // $author->birthday = '1970-01-01';
-        // $author->genres = 'Computer science';
-        // $author->fill(['book_id' => $networks->id]);
-        // $author->create();
-
-        // $author2 = new Author();
-        // $author2->lastname = 'Ross';
-        // $author2->firstname = 'Keith';
-        // $author2->birthday = '1985-02-02';
-        // $author2->genres = 'Computer science';
-        // $author2->fill(['book_id' => $networks->id]);
-        // $author2->create();
-
-        
-        // $networks->authors()->save($author);
-        // $networks->authors()->save($author2);
-        // return redirect('books');
+        return view('authors/edit', ['author'=> null, 'booksList' => $booksList]);
     }
 
     /**
@@ -60,29 +40,43 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $authorData = $request->only(['firstname', 'lastname', 'birthday', 'genres']);
+        $author = new Author();
+        $author->fill($authorData);
+        $author->save();
+
+        $books = $request->only(['book_id']);
+        foreach ($books as $book) {
+            $network=Book::find((int)($book));
+            if ($network->first()) {
+                $network->authors()->save($author);
+            }
+        }
+        return redirect('authors');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Author  $author
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Author $author)
+    public function show(int $id)
     {
-        //
+       
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Author  $author
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Author $author)
+    public function edit(int $id)
     {
-        //
+        $booksList=Book::all();
+        $author = Author::find($id);
+        return view('authors/edit', ['author'=> $author, 'booksList' => $booksList]);
     }
 
     /**
@@ -92,9 +86,24 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, int $id)
     {
-        //
+        $authorData = $request->only(['firstname', 'lastname', 'birthday', 'genres']);
+        $author = Author::find($id);
+        $author->fill($authorData);
+        $author->save();
+
+        // Delete all the previous books associated with the current author.
+        DB::table('author_book')->where('author_id', $id)->delete();
+
+        $books = $request->only(['book_id']);
+        foreach ($books as $book) {
+            $network=Book::find((int)($book));
+            if (!empty($network)) {
+                $network->authors()->save($author);
+            }
+        }
+        return redirect('authors');
     }
 
     /**
@@ -105,6 +114,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        Author::find($id)->delete();
+        return redirect('authors');
     }
 }
